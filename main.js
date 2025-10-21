@@ -31,11 +31,6 @@ async function fetchRandomDriver() {
 }
 
 
-
-
-
-
-
 function checkAnswer() {
     
   let userInput = document.getElementById("driver-input").value;
@@ -49,10 +44,14 @@ function checkAnswer() {
   } else {
     alert(`Wrong! The correct answer was ${randomDriver.full_name}.`);
   }
+
+  parentDiv.innerHTML = "";
+
+  fetchRandomDriver();
 }
 
 (async () => {
-  await fetchRandomDriver();  // ✅ prvo se dohvaća asinkrono
-  document.getElementById("submit-btn").addEventListener("click", checkAnswer); // tek tada dodaj listener
+  await fetchRandomDriver();  
+  document.getElementById("submit-btn").addEventListener("click", checkAnswer); 
 })();
 
