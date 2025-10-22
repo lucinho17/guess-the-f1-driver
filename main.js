@@ -23,12 +23,19 @@ async function fetchRandomDriver() {
   driverNumber.textContent = `Driver Number: ${randomDriver.driver_number}`;
   parentDiv.appendChild(driverNumber);
 
-  let driverCountry = document.createElement("p");
+  let driverCountry = document.createElement("h2");
   driverCountry.textContent = `Country: ${randomDriver.country_code}`;
   parentDiv.appendChild(driverCountry);
 
   
 }
+
+
+let result = document.getElementById("result");
+let points = document.getElementById("points");
+let score = 0;
+
+points.textContent = `Points: ${score}`;
 
 
 function checkAnswer() {
@@ -40,15 +47,25 @@ function checkAnswer() {
   }
 
   if(userInput.toLowerCase() === randomDriver.full_name.toLowerCase()) {
-    alert("Correct! You guessed the driver.");
+    result.textContent = "Correct! You guessed the driver.";
+    score += 10;
+    points.textContent = `Points: ${score}`
+
+    ;
+    
   } else {
-    alert(`Wrong! The correct answer was ${randomDriver.full_name}.`);
+    result.textContent = `Wrong! The correct answer was ${randomDriver.full_name}.`;
+    
+    
   }
 
   parentDiv.innerHTML = "";
+  
 
   fetchRandomDriver();
 }
+
+
 
 (async () => {
   await fetchRandomDriver();  

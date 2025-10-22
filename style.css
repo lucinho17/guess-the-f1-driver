@@ -6,7 +6,7 @@
     margin: 0;
  }
 
- #input-div{
+ #input-div,#output-div {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -24,6 +24,7 @@
     color: white;
     font-size: 14px;
     height: 200px;
+    text-align: center;
 
  }
 
@@ -60,4 +61,34 @@
 
  .hidden{
     display: none;
+ }
+
+ #output-div{
+   margin-top: 50px;
+ }
+
+ @media only screen and (max-width: 900px) {
+    #input-div,#output-div {
+       width: 60%;
+    }
+    #input-div{
+         height: 300px;
+    }
+    #input-section{
+       flex-direction: column;
+       height: 120px;
+    }
+
+    #input-section input, #input-section button{
+       width: 100%;
+    }
+ }
+
+ @media only screen and (max-width: 400px) {
+    #input-div{
+      height: 350px;
+    }
+    h1{
+         font-size: 24px;
+    }
  }
