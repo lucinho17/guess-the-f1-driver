@@ -19,6 +19,13 @@ async function fetchRandomDriver() {
 
   
 
+  let driverImg = document.createElement("img");
+  driverImg.src = randomDriver.headshot_url;
+  driverImg.alt = randomDriver.full_name;
+  driverImg.style.width = "120px";
+  driverImg.style.height = "120px";
+  parentDiv.appendChild(driverImg);
+
   let driverNumber = document.createElement("h2");
   driverNumber.textContent = `Driver Number: ${randomDriver.driver_number}`;
   parentDiv.appendChild(driverNumber);
