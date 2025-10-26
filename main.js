@@ -3,7 +3,7 @@ const url = "https://api.openf1.org/v1";
 let parentDiv = document.getElementById("output-div");
 let randomDriver= null;
 
-
+let flag = false;
 async function fetchRandomDriver() {
     
     
@@ -26,15 +26,22 @@ async function fetchRandomDriver() {
   driverImg.style.height = "120px";
   parentDiv.appendChild(driverImg);
 
-  let driverNumber = document.createElement("h2");
-  driverNumber.textContent = `Driver Number: ${randomDriver.driver_number}`;
-  parentDiv.appendChild(driverNumber);
+  let hint = document.createElement("button");
+  hint.id="hint-btn";
+  hint.textContent = "Show Hint";
+  parentDiv.appendChild(hint);
 
-  let driverCountry = document.createElement("h2");
-  driverCountry.textContent = `Country: ${randomDriver.country_code}`;
-  parentDiv.appendChild(driverCountry);
+  hint.addEventListener("click", () => {
+    parentDiv.style.height = "300px";
+    flag = true;
+    let driverNumber = document.createElement("p");
+    driverNumber.textContent = `Driver Number: ${randomDriver.driver_number}`;
+    parentDiv.appendChild(driverNumber);
 
-  
+    let driverNationality = document.createElement("p");
+    driverNationality.textContent = `Nationality: ${randomDriver.country_code}`;
+    parentDiv.appendChild(driverNationality);
+  });
 }
 
 
@@ -43,6 +50,7 @@ let points = document.getElementById("points");
 let score = 0;
 
 points.textContent = `Points: ${score}`;
+
 
 
 function checkAnswer() {
@@ -55,7 +63,13 @@ function checkAnswer() {
 
   if(userInput.toLowerCase() === randomDriver.full_name.toLowerCase()) {
     result.textContent = "Correct! You guessed the driver.";
-    score += 10;
+    if(flag==true){
+        score +=5;
+        flag=false;
+    }else{
+        score +=10;
+    }
+    
     points.textContent = `Points: ${score}`
 
     ;

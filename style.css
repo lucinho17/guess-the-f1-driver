@@ -44,7 +44,7 @@
     padding: 0 10px;
     font-size: 16px;
  }  
-#input-section button{
+#input-section button,#hint-btn{
     width: 35%;
     height: 40px;
     border-radius: 8px;
@@ -79,7 +79,7 @@
        height: 120px;
     }
 
-    #input-section input, #input-section button{
+    #input-section input, #input-section button,#hint-btn{
        width: 100%;
     }
  }
