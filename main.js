@@ -2,6 +2,10 @@
 const url = "https://api.openf1.org/v1";
 let parentDiv = document.getElementById("output-div");
 let randomDriver= null;
+let total = 0;
+
+
+
 
 let flag = false;
 async function fetchRandomDriver() {
@@ -9,6 +13,7 @@ async function fetchRandomDriver() {
     
   const response = await fetch(`${url}/drivers`);
   const data = await response.json();
+  total+=1;
 
   if (!Array.isArray(data) || data.length === 0) {
     throw new Error("No drivers found in API response");
@@ -82,7 +87,11 @@ function checkAnswer() {
 
   parentDiv.innerHTML = "";
   
-
+  if(total == 10){
+    alert(`Game Over! Your final score is ${score} points.`);
+    window.location.reload();
+    return;
+  }
   fetchRandomDriver();
 }
 
