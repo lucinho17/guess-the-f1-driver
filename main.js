@@ -5,7 +5,7 @@ let randomDriver= null;
 let total = 0;
 
 
-
+let allDrivers = [];  
 
 let flag = false;
 async function fetchRandomDriver() {
@@ -13,16 +13,28 @@ async function fetchRandomDriver() {
     
   const response = await fetch(`${url}/drivers`);
   const data = await response.json();
-  total+=1;
+  
 
   if (!Array.isArray(data) || data.length === 0) {
     throw new Error("No drivers found in API response");
   }
-
-  const randomIndex = Math.floor(Math.random() * data.length);
-  randomDriver = data[randomIndex];
+  allDrivers = data;
 
   
+}
+
+function getRandomDriver() {
+  const randomIndex = Math.floor(Math.random() * allDrivers.length);
+  return allDrivers[randomIndex];
+}
+
+
+async function loadDriver() {
+  if (allDrivers.length === 0) {
+    await fetchRandomDriver();
+  }
+
+  randomDriver = getRandomDriver();
 
   let driverImg = document.createElement("img");
   driverImg.src = randomDriver.headshot_url;
@@ -47,7 +59,12 @@ async function fetchRandomDriver() {
     driverNationality.textContent = `Nationality: ${randomDriver.country_code}`;
     parentDiv.appendChild(driverNationality);
   });
+  
 }
+  
+
+  
+
 
 
 let result = document.getElementById("result");
@@ -87,18 +104,25 @@ function checkAnswer() {
 
   parentDiv.innerHTML = "";
   
+  
+  loadDriver();
+}
+
+
+
+fetchRandomDriver().then(() => {
+  loadDriver();
+});
+
+let submitBtn = document.getElementById("submit-btn");
+submitBtn.addEventListener("click", () => {
+  total += 1;
   if(total == 10){
     alert(`Game Over! Your final score is ${score} points.`);
     window.location.reload();
     return;
   }
-  fetchRandomDriver();
-}
-
-
-
-(async () => {
-  await fetchRandomDriver();  
-  document.getElementById("submit-btn").addEventListener("click", checkAnswer); 
-})();
+  checkAnswer();
+  document.getElementById("driver-input").value = "";
+});
 
