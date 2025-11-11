@@ -65,17 +65,23 @@ Play the game here: [https://lucinho17.github.io/guess-the-f1-driver/](https://l
 ### `fetchRandomDriver()`
 - **Async** function that loads driver data.  
 - If the driver list is not cached, it fetches it from the API.  
-- Selects a random driver and stores it in a global variable `currentDriver`.  
-- Updates the DOM with new hints and image.
+- Catches all JSON objects from the endpoint and stores them in array variable locally.
 
-### `checkGuess()`
+### `getRandomDriver()`
+- **Sync** function that generates random index and returns object from an array with that index
+
+### `loadDriver()`
+- **Async** function that calls `getRandomDriver()` function and stores returned object into local variable
+- Manipulates DOM, creates container for displaying driver's picture and hints.
+
+### `checkAnswer()`
 - **Sync** function that compares user input with the current driver’s name.  
 - Displays feedback (correct / incorrect).  
-- Calls `fetchRandomDriver()` again for the next round.
+- Calls `loadDriver()` again for the next round.
 
 ### Game Loop
 - The game starts by calling `fetchRandomDriver()` once on page load.  
-- Each `checkGuess()` call ends by loading a new random driver, creating an endless loop of rounds.
+- Each `checkAnswer()` call ends by loading a new random driver, creating an endless loop of rounds.
 
 ---
 
@@ -91,11 +97,7 @@ Play the game here: [https://lucinho17.github.io/guess-the-f1-driver/](https://l
 
 ## ⚡ Optimization
 
-- **Caching**: Fetch all drivers once and reuse them locally (faster between rounds)  
-- **Reduced fetch load**: Optionally limit API results to active drivers only (`?session_key=latest`)  
-- **Non-blocking UI**: Replace `alert()` with inline DOM messages  
-- **Loading state**: Display “Loading…” or a spinner during API calls  
-- **Efficient DOM updates**: Update only text or image content instead of recreating elements  
+- **Caching**: Fetch all drivers once and reuse them locally (faster between rounds)    
 - **Responsive design**: Adjust layout for smaller screens  
 
 ---
