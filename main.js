@@ -3,6 +3,7 @@ const url = "https://api.openf1.org/v1";
 let parentDiv = document.getElementById("output-div");
 let randomDriver= null;
 let total = 0;
+let attempts = document.getElementById('attempts');
 
 
 let allDrivers = [];  
@@ -117,6 +118,7 @@ fetchRandomDriver().then(() => {
 let submitBtn = document.getElementById("submit-btn");
 submitBtn.addEventListener("click", () => {
   total += 1;
+  attempts.innerHTML = `Attempts left: ${10-total}`
   if(total == 10){
     alert(`Game Over! Your final score is ${score} points.`);
     window.location.reload();
